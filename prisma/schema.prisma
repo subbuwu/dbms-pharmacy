@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Companies {
+  id        Int         @id
+  com_name  String
+  Medicines Medicines[]
+}
+
+model Stocks {
+  id        Int         @id
+  stock_num Int
+  Medicines Medicines[]
+}
+
+model Medicines {
+  med_id    Int       @id
+  med_name  String
+  med_cost  Int
+  companies Companies @relation(fields: [com_id], references: [id])
+  stocks    Stocks    @relation(fields: [stock_id], references: [id])
+  com_id    Int
+  stock_id  Int
+}
+
+model Login {
+  login_id             Int     @id
+  user_pw        String
+  login_username String
+  users          Users[]
+}
+
+model Users {
+  user_id      Int    @id
+  username     String
+  user_email   String
+  user_address String
+  login        Login  @relation(fields: [login_id], references: [login_id])
+  login_id     Int
+}
+
+// 'user_id','int','NO','PRI',NULL,''
+// 'username','varchar(50)','YES','',NULL,''
+// 'user_email','varchar(50)','YES','',NULL,''
+// 'user_address','varchar(100)','YES','',NULL,''
+// 'login_id','int','YES','MUL',NULL,''
