@@ -22,7 +22,7 @@ async function getUsersFromDatabase() {
       user_email: true,
       login: {
         select: {
-          user_pw: true, // Only include password if necessary for security reasons
+          user_pw: true, 
         },
       },
     },

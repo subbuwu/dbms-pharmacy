@@ -15,29 +15,29 @@ datasource db {
 }
 
 model Companies {
-  id        Int         @id
+  com_id    Int         @id
   com_name  String
   Medicines Medicines[]
 }
 
 model Stocks {
-  id        Int         @id
+  stock_id  Int         @id
   stock_num Int
   Medicines Medicines[]
 }
 
 model Medicines {
-  med_id    Int       @id
+  med_id    Int       @id @default(autoincrement())
   med_name  String
   med_cost  Int
-  companies Companies @relation(fields: [com_id], references: [id])
-  stocks    Stocks    @relation(fields: [stock_id], references: [id])
+  companies Companies @relation(fields: [com_id], references: [com_id])
+  stocks    Stocks    @relation(fields: [stock_id], references: [stock_id])
   com_id    Int
   stock_id  Int
 }
 
 model Login {
-  login_id             Int     @id
+  login_id       Int     @id
   user_pw        String
   login_username String
   users          Users[]

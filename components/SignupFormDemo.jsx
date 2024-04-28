@@ -17,6 +17,8 @@ export function SignupFormDemo() {
     password: "",
   });
 
+  const [med,setMed] = useState()
+
   const router = useRouter()
 
   const handleSubmit = async (e) => {
