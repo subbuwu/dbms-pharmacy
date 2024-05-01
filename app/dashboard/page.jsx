@@ -15,7 +15,6 @@ const Page = () => {
   const currentlyActive = useAuthStore((state) => state.currentlyActive);
 
   const [isOpen, setIsOpen] = useState(false);
-  
 
   return (
   <MyContext.Provider value={{isOpen,setIsOpen}} >

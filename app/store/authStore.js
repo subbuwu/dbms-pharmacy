@@ -6,5 +6,7 @@ export const useAuthStore = create((set) => ({
   currentlyActive: "medicines",
   updateCurrentlyActive: (newCurrentlyActive) => set({ currentlyActive: newCurrentlyActive }),
   allMedicines: [],
-  updateAllMedicines: (newMedicines) => set({ allMedicines: newMedicines }),
-}))
+  updateAllMedicineCost: (newMedicines) => set({ allMedicines: newMedicines }),
+  globalAverageMedicineCost: 0,
+  updateGlobalAverageMedicineCost: (newGlobalAverageMedicineCost) => set({ globalAverageMedicineCost: newGlobalAverageMedicineCost }),
+})) 

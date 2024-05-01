@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import MedicineItem from "./MedicineItem";
 import axios from "axios";
+import CompanyItem from "./CompanyItem";
 
-const MedicinesSectionTable = ({update,setIsUpdate}) => {
-  const [med, setMed] = useState(null);
+const CompaniesTableSection = ({update,setIsUpdate}) => {
+  const [companies, setCompanies] = useState(null);
 
   useEffect(() => {
     const handleDataFetch = async () => {
       try {
-        const response = await axios.get("/api/medicines");
-        setMed(response.data);
+        const response = await axios.get("/api/getCompanies");
+        setCompanies(response.data);
       } catch (error) {
         console.error("Error fetching medicines:", error);
       }
@@ -24,38 +24,23 @@ const MedicinesSectionTable = ({update,setIsUpdate}) => {
           <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-4">
             <div className="p-2.5 xl:p-4 bg-[#f7f9fc]">
               <h5 className="text-[#67768d] text-[16px] font-medium uppercase xsm:text-base ">
-                Medicine Name
+                Company ID
               </h5>
             </div>
             <div className="p-2.5 text-center xl:p-4 bg-[#f7f9fc]">
               <h5 className="text-[#67768d] text-[16px] font-medium uppercase xsm:text-base">
-                Medicine Cost
-              </h5>
-            </div>
-            <div className="p-2.5 text-center xl:p-4 bg-[#f7f9fc]">
-              <h5 className="text-[#67768d] text-[16px] font-medium uppercase xsm:text-base">
-                Company
-              </h5>
-            </div>
-            <div className="hidden p-2.5 text-center sm:block xl:p-4 bg-[#f7f9fc]">
-              <h5 className="text-[#67768d] text-[16px] font-medium uppercase xsm:text-base">
-                Stock Content
+                Company Name
               </h5>
             </div>
           </div>
-          {!med ? (
+          {!companies ? (
             <p>Loading..</p>
           ) : (
-            med.map((medicine, index) => (
-              <MedicineItem
+            companies.map((company, index) => (
+              <CompanyItem
                 key={index}
-                id = {medicine.med_id}
-                brandName={medicine.med_name}
-                medicineCost={medicine.med_cost}
-                companyName={medicine.companies.com_name}
-                stockContent={medicine.stocks.stock_num}
-                setIsUpdate={setIsUpdate}
-                update={update}
+                com_id = {company.com_id}
+                com_name = {company.com_name}
               />
             ))
           )}
@@ -65,4 +50,4 @@ const MedicinesSectionTable = ({update,setIsUpdate}) => {
   );
 };
 
-export default MedicinesSectionTable;
+export default CompaniesTableSection;

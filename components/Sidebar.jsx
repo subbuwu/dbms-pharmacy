@@ -7,12 +7,6 @@ const Sidebar = () => {
    const currentUser = useAuthStore((state) => state.currentUser)
    const currentlyActive = useAuthStore((state) => state.currentlyActive)
    const updateCurrentlyActive = useAuthStore((state) => state.updateCurrentlyActive)
-   const router = useRouter();
-
-   
-   if(!currentUser){
-      router.push("/")   
-   }
 
   return (
     <aside id="default-sidebar" class="relative top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">

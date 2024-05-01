@@ -13,6 +13,7 @@ export async function GET() {
 async function getMedicines() {
   const medicines = await prisma.medicines.findMany({
     select: {
+      med_id: true,
       med_name: true,
       med_cost: true,
       companies: {

@@ -3,26 +3,26 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import MedicinesSectionTable from "./MedicinesSectionTable";
 import { MyContext } from "@/app/dashboard/page";
+import { useAuthStore } from "@/app/store/authStore";
 
 
 const Medicines = () => {
-
   const {  setIsOpen } = useContext(MyContext);
 
+  const globalAverageMedicineCost = useAuthStore((state) => state.globalAverageMedicineCost)
+  const updateGlobalAverageMedicineCost = useAuthStore((state) => state.updateGlobalAverageMedicineCost)
+  const [update,setIsUpdate] = useState(false);
   const [medicineCount,setMedicineCount] = useState();
-  const [avgMedCost,setAvgMedCost] = useState();    
-
+ 
   useEffect(()=>{
     const getMedicinesCount = async() => {
       const response = await axios.get("/api/getMedicineCount");
       const avgCost = await axios.get("/api/getAverageMedicineCost");
-      setAvgMedCost(avgCost.data);
+      updateGlobalAverageMedicineCost(avgCost.data);
       setMedicineCount(response.data.length)
     }
     getMedicinesCount();
   },[])
-
-
   
 
   return (
@@ -193,7 +193,7 @@ const Medicines = () => {
               </svg>
               <h4 class="mt-5 text-[16px] mb-2 font-medium text-[#66758c] text-2xl">Average Medicine Cost</h4>
               <h3 class="mb-2 text-[26px] font-bold text-black">
-              ₹ {avgMedCost} 
+              ₹ {globalAverageMedicineCost} 
               </h3>
               <p class="flex items-center gap-1 text-sm font-medium">
                 <svg
@@ -224,7 +224,7 @@ const Medicines = () => {
         </div>
       </div>
       <div className="mt-7.5 p-4 md:p-6 2xl:p-10">
-       <MedicinesSectionTable />
+       <MedicinesSectionTable update={update} setIsUpdate={setIsUpdate}/>
       </div>
     </main>
   );

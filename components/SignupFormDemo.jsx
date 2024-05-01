@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { cn } from "@/utils/cn";
@@ -10,7 +10,19 @@ import { useAuthStore } from "@/app/store/authStore";
 
 
 export function SignupFormDemo() {
+  const ifUser = localStorage.getItem("user");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (ifUser) {
+      // Redirect user to dashboard if already logged in
+      router.push("/dashboard");
+    }
+  }, [ifUser, router]);
+
+  const currentUser = useAuthStore((state)=> state.currentUser)
   const updateCurrentUser = useAuthStore((state) => state.updateCurrentUser)
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -19,7 +31,6 @@ export function SignupFormDemo() {
 
   const [med,setMed] = useState()
 
-  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,6 +66,7 @@ export function SignupFormDemo() {
       if (matchedUser) {
         // If credentials match, navigate to the dashboard
         updateCurrentUser(matchedUser.username)
+        localStorage.setItem("user",matchedUser.username)
         navigateToDashboard()
       } else {
         // If credentials don't match, display an error message
