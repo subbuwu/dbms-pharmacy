@@ -94,7 +94,7 @@ const Stocks = () => {
           </div>
         </div>
         <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 2xl:gap-7.5">
-        <div class="rounded-sm border-[2px] hover:border-blue-400 border-stroke bg-white p-4 shadow-xl dark:border-strokedark dark:bg-boxdark md:p-6 xl:p-7.5" onClick={()=>setIsOpen(true)}>
+        <div class="rounded-sm border-[2px] hover:border-blue-400 border-stroke bg-white p-4 shadow-xl dark:border-strokedark dark:bg-boxdark md:p-6 xl:p-7.5" onClick={()=>setIsOpen("stocks")}>
             <h4 class="mt-5 text-[36px] mb-2 font-medium text-[#66758c] text-2xl">Add New Stock Content</h4>
             <h3 class="mb-2 text-[46px] font-bold text-black">
             +
